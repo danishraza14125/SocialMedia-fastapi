@@ -29,6 +29,12 @@ def get_db():
         db.close()
 
 
+
+# Import models here for Alembic
+from app.db.models import User
+from app.db.models import Post
+# Add other models here
+
 # from sqlalchemy import create_engine
 # from sqlalchemy.ext.declarative import declarative_base
 # from sqlalchemy.orm import sessionmaker

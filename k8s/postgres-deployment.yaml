@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest        # ← Your image
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: fastapi          # ← Replace if your DB name is different
+            - name: POSTGRES_USER
+              value: postgres       # ← Replace with your DB user
+            - name: POSTGRES_PASSWORD
+              value: danishraza212083 # ← Replace with your DB password
+          volumeMounts:
+            - name: fastapi-pgdata      # ← Your volume name
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: fastapi-pgdata          # ← Your volume name again
+          emptyDir: {}                  # ⚠️ Temporary (use PVC for real data storage)
